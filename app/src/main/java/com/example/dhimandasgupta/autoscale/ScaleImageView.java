@@ -110,7 +110,12 @@ public class ScaleImageView extends ImageView {
         Bitmap scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
         width = scaledBitmap.getWidth(); // re-use
         height = scaledBitmap.getHeight(); // re-use
-        BitmapDrawable result = new BitmapDrawable(scaledBitmap);
+        BitmapDrawable result = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            result = new BitmapDrawable(getResources(), scaledBitmap);
+        } else {
+            result = new BitmapDrawable(scaledBitmap);
+        }
         Log.i("Test", "scaled width = " + Integer.toString(width));
         Log.i("Test", "scaled height = " + Integer.toString(height));
 
